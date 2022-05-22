@@ -52,7 +52,7 @@ M.general = {
    },
 
    t = {
-      ["jk"] = { termcodes "<C-\\><C-N>", "   escape terminal mode" },
+      ["<C-x>"] = { termcodes "<C-\\><C-N>", "   escape terminal mode" },
    },
 }
 
@@ -129,7 +129,7 @@ M.lspconfig = {
          "   lsp implementation",
       },
 
-      ["<C-k>"] = {
+      ["<leader>ls"] = {
          function()
             vim.lsp.buf.signature_help()
          end,

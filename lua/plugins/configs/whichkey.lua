@@ -55,10 +55,11 @@ local options = {
    },
 }
 
-require("plugins.configs.others").misc_mappings()
+options = nvchad.load_override(options, "folke/which-key.nvim")
 
 local mappings = nvchad.load_config().mappings
 local mapping_groups = { groups = vim.deepcopy(mappings.groups) }
+
 mappings.disabled = nil
 mappings.groups = nil
 
@@ -77,6 +78,5 @@ end
 register_mappings(mappings, options)
 register_mappings(mapping_groups, options)
 
-options = nvchad.load_override(options, "folke/which-key.nvim")
 
 wk.setup(options)
