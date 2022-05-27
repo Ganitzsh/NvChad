@@ -162,12 +162,12 @@ local plugins = {
    },
 
    -- misc plugins
-   -- ["windwp/nvim-autopairs"] = {
-   --    after = "nvim-cmp",
-   --    config = function()
-   --       require("plugins.configs.others").autopairs()
-   --    end,
-   -- },
+   ["windwp/nvim-autopairs"] = {
+      after = "nvim-cmp",
+      config = function()
+         require("plugins.configs.others").autopairs()
+      end,
+   },
 
    ["goolord/alpha-nvim"] = {
       disable = true,
