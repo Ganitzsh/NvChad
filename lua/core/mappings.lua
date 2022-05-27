@@ -23,6 +23,8 @@ M.general = {
 
    n = {
 
+      ["<ESC>"] = { "<cmd> noh <CR>", "  no highlight" },
+
       -- switch between windows
       ["<C-h>"] = { "<C-w>h", " window left" },
       ["<C-l>"] = { "<C-w>l", " window right" },
@@ -99,6 +101,9 @@ M.comment = {
 
 M.lspconfig = {
    -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
+
+   -- define all paths from which these maps should not be applied through the mapping function
+   ignore = { "/lua/custom/init.lua", "/lua/plugins/configs/whichkey.lua" },
 
    n = {
       ["gD"] = {
