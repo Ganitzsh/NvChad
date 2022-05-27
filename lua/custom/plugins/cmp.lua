@@ -1,71 +1,107 @@
 local present, cmp = pcall(require, "cmp")
 
+local lspkind = require("lspkind")
 if not present then
-   return
+  return
 end
 
 vim.opt.completeopt = "menuone,noselect"
-
-local default = {
-   snippet = {
-      expand = function(args)
-         require("luasnip").lsp_expand(args.body)
-         -- require("snippy").expand_snippet(args.body)
-      end,
-   },
-   formatting = {
-      format = function(entry, vim_item)
-         local icons = require "plugins.configs.lspkind_icons"
-         vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-
-         vim_item.menu = ({
-            nvim_lsp = "[LSP]",
-            nvim_lua = "[Lua]",
-            buffer = "[BUF]",
-         })[entry.source.name]
-
-         return vim_item
-      end,
-   },
-   mapping = {
-      ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<C-n>"] = cmp.mapping.select_next_item(),
-      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm {
-         behavior = cmp.ConfirmBehavior.Replace,
-         select = true,
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
+  style = {
+    winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+  },
+  formatting = {
+    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
+  },
+  window = {
+    completion = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      scrollbar = "║",
+      winhighlight = 'Normal:CmpMenu,FloatBorder:CmpMenuBorder,CursorLine:CmpSelection,Search:None',
+      autocomplete = {
+        require("cmp.types").cmp.TriggerEvent.InsertEnter,
+        require("cmp.types").cmp.TriggerEvent.TextChanged,
       },
-      ["<Tab>"] = cmp.mapping(function(fallback)
-         if cmp.visible() then
-            cmp.select_next_item()
-         elseif require("luasnip").expand_or_jumpable() then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-         else
-            fallback()
-         end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-         if cmp.visible() then
-            cmp.select_prev_item()
-         elseif require("luasnip").jumpable(-1) then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-         else
-            fallback()
-         end
-      end, { "i", "s" }),
-   },
-   sources = cmp.config.sources {
-      { name = "copilot" },
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "snippy" },
-      { name = "buffer" },
-      { name = "nvim_lua" },
-      { name = "path" },
-   },
-}
+    },
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+      scrollbar = "║",
+    },
+  },
+  mapping = {
+    ["<PageUp>"] = function()
+      for _ = 1, 10 do
+        cmp.mapping.select_prev_item()(nil)
+      end
+    end,
+    ["<PageDown>"] = function()
+      for _ = 1, 10 do
+        cmp.mapping.select_next_item()(nil)
+      end
+    end,
+    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-s>"] = cmp.mapping.complete({
+        config = {
+          sources = {
+            { name = 'copilot' },
+          }
+        }
+      }),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    }),
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end,
+  },
+  experimental = {
+    native_menu = false,
+    ghost_text = true,
+  },
+  sources = {
+    { name = "copilot", group_index = 2 },
+    { name = "nvim_lsp", group_index = 2 },
+    { name = "path", group_index = 2 },
+    { name = 'orgmode', group_index = 2 },
+    { name = 'neorg', group_index = 2 },
+    { name = "nvim_lua", group_index = 2 },
+    -- { name = "luasnip", group_index = 2 },
+    -- { name = "buffer", group_index = 5 },
+  },
+  sorting = {
+    comparators = {
+      cmp.config.compare.recently_used,
+      cmp.config.compare.offset,
+      cmp.config.compare.score,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
+  preselect = cmp.PreselectMode.Item,
+})
 
-cmp.setup(default)
+--set max height of items
+vim.cmd([[ set pumheight=6 ]])

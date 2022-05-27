@@ -48,7 +48,6 @@ local M = {}
 M.setup = function()
    null_ls.setup {
       sources = sources,
-      debug = true,
    }
 end
 

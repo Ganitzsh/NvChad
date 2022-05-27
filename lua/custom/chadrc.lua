@@ -11,9 +11,12 @@ M.ui = {
    theme = "gruvchad",
 }
 
+
 -- NvChad included plugin options & overrides
 M.plugins = {
    user = {
+      ["onsails/lspkind.nvim"] = {},
+
       ["ojroques/nvim-bufdel"] = {
          config = function()
             require("bufdel").setup {
