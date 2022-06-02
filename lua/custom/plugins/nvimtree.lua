@@ -1,50 +1,11 @@
-local map = nvchad.map
-
 local present, nvimtree = pcall(require, "nvim-tree")
 if not present then
    return
 end
 
-local g = vim.g
-
 vim.o.termguicolors = true
 
-g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
-g.nvim_tree_git_hl = 1
-g.nvim_tree_highlight_opened_files = 0
-g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
 --
-g.nvim_tree_show_icons = {
-   folders = 1,
-   folder_arrows = 1,
-   files = 1,
-   git = 1,
-}
-
-g.nvim_tree_icons = {
-   default = "",
-   symlink = "",
-   git = {
-      deleted = "",
-      ignored = "◌",
-      renamed = "➜",
-      staged = "✓",
-      unmerged = "",
-      unstaged = "✗",
-      untracked = "★",
-   },
-   folder = {
-      arrow_open = "",
-      arrow_closed = "",
-      default = "",
-      empty = "", -- 
-      empty_open = "",
-      open = "",
-      symlink = "",
-      symlink_open = "",
-   },
-}
-
 nvimtree.setup {
    auto_reload_on_write = true,
    disable_netrw = false,
@@ -74,6 +35,10 @@ nvimtree.setup {
       },
    },
    renderer = {
+      highlight_opened_files = "none",
+      add_trailing = false,
+      highlight_git = true,
+      root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" },
       indent_markers = {
          enable = false,
          icons = {
@@ -84,6 +49,38 @@ nvimtree.setup {
       },
       icons = {
          webdev_colors = true,
+         git_placement = "before",
+         padding = " ",
+         symlink_arrow = " ➛ ",
+         show = {
+            file = true,
+            folder = true,
+            folder_arrow = true,
+            git = true,
+         },
+         glyphs = {
+            default = "",
+            symlink = "",
+            folder = {
+               arrow_closed = "",
+               arrow_open = "",
+               default = "",
+               open = "",
+               empty = "",
+               empty_open = "",
+               symlink = "",
+               symlink_open = "",
+            },
+            git = {
+               unstaged = "✗",
+               staged = "✓",
+               unmerged = "",
+               renamed = "➜",
+               untracked = "★",
+               deleted = "",
+               ignored = "◌",
+            },
+         },
       },
    },
    hijack_directories = {
@@ -157,6 +154,3 @@ nvimtree.setup {
       },
    },
 }
-
-map("n", "<leader>tm", ":NvimTreeResize -5<CR>")
-map("n", "<leader>tp", ":NvimTreeResize +5<CR>")

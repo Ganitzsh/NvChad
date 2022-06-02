@@ -5,7 +5,7 @@ M.setup_lsp = function(attach, capabilities)
 
    -- lspservers with default config
 
-   local servers = { "html", "cssls", "pyright", "clangd", "yamlls", "tsserver" }
+   local servers = { "html", "cssls", "pyright", "clangd", "yamlls", "tsserver", "denols" }
 
    for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
@@ -113,7 +113,15 @@ M.setup_lsp = function(attach, capabilities)
          "typescriptreact",
          "typescript.tsx",
       },
-      -- root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json"),
+      root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json"),
+   }
+
+   lspconfig.denols.setup {
+      on_attach = attach,
+      root_dir = lspconfig.util.root_pattern "deno.json",
+      init_options = {
+         enable = true,
+      },
    }
 
    -- golang
@@ -145,8 +153,6 @@ M.setup_lsp = function(attach, capabilities)
          },
       },
    }
-
-   lspconfig.sumneko_lua.setup(require "custom.plugins.lsp.sumneko_lua")
 end
 
 return M

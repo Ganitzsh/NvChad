@@ -12,17 +12,17 @@ cmp.setup {
          require("luasnip").lsp_expand(args.body)
       end,
    },
-   style = {
-      winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-   },
+   -- style = {
+   --    winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+   -- },
    formatting = {
-      format = lspkind.cmp_format { with_text = false, maxwidth = 50 },
+      format = lspkind.cmp_format { with_text = true, maxwidth = 50 },
    },
    window = {
       completion = {
          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
          scrollbar = "║",
-         winhighlight = "Normal:CmpMenu,FloatBorder:CmpMenuBorder,CursorLine:CmpSelection,Search:None",
+         -- winhighlight = "Normal:CmpMenu,FloatBorder:CmpMenuBorder,CursorLine:CmpSelection,Search:None",
          autocomplete = {
             require("cmp.types").cmp.TriggerEvent.InsertEnter,
             require("cmp.types").cmp.TriggerEvent.TextChanged,
@@ -30,7 +30,7 @@ cmp.setup {
       },
       documentation = {
          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-         winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+         -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
          scrollbar = "║",
       },
    },
