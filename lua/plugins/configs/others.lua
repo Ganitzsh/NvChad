@@ -111,7 +111,9 @@ M.comment = function()
       return
    end
 
-   nvim_comment.setup()
+   local options = {}
+   options = load_override(options, "numToStr/Comment.nvim")
+   nvim_comment.setup(options)
 end
 
 M.luasnip = function()
@@ -121,11 +123,13 @@ M.luasnip = function()
       return
    end
 
-   luasnip.config.set_config {
+   local options = {
       history = true,
       updateevents = "TextChanged,TextChangedI",
    }
+   options = load_override(options, "L3MON4D3/LuaSnip")
 
+   luasnip.config.set_config(options)
    require("luasnip.loaders.from_vscode").lazy_load()
 end
 
@@ -261,8 +265,7 @@ M.gitsigns = function()
    if not present then
       return
    end
-
-   gitsigns.setup {
+   local options = {
       signs = {
          add = { hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr" },
          change = { hl = "DiffChange", text = "│", numhl = "GitSignsChangeNr" },
@@ -271,6 +274,9 @@ M.gitsigns = function()
          changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
       },
    }
+   options = load_override(options, "lewis6991/gitsigns.nvim")
+
+   gitsigns.setup(options)
 end
 
 return M
