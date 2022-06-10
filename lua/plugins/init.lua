@@ -17,6 +17,7 @@ local plugins = {
    },
 
    ["NvChad/nvterm"] = {
+      module = "nvterm",
       config = function()
          require "plugins.configs.nvterm"
       end,
@@ -29,13 +30,6 @@ local plugins = {
       end,
    },
 
-   ["feline-nvim/feline.nvim"] = {
-      after = "nvim-web-devicons",
-      config = function()
-         require "plugins.configs.statusline"
-      end,
-   },
-
    ["SmiteshP/nvim-gps"] = {
       event = "CursorMoved",
       config = function()
@@ -44,6 +38,7 @@ local plugins = {
    },
 
    ["akinsho/bufferline.nvim"] = {
+      tag = "v2.*",
       after = "nvim-web-devicons",
       config = function()
          require "plugins.configs.bufferline"
@@ -112,12 +107,7 @@ local plugins = {
       end,
    },
 
-   ["max397574/better-escape.nvim"] = {
-      event = "InsertCharPre",
-      config = function()
-         require("plugins.configs.others").better_escape()
-      end,
-   },
+ 
 
    -- load luasnips + cmp related in insert mode only
 
