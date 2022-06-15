@@ -1,3 +1,5 @@
+local formatters = require "custom.plugins.formatters"
+
 local ok, null_ls = pcall(require, "null-ls")
 
 if not ok then
@@ -13,19 +15,24 @@ local sources = {
    },
 
    -- JS html css stuff
-   b.diagnostics.eslint_d, -- eslint or eslint_d
+   b.diagnostics.eslint_d,
    b.code_actions.eslint_d,
    b.formatting.prettierd.with {
+      on_attach = function(client, bufnr)
+         formatters.setup(client, bufnr)
+      end,
+
       filetypes = {
          "html",
          "json",
          "markdown",
          "scss",
          "css",
+         "yaml",
          "typescript",
          "javascript",
          "javascriptreact",
-         "yaml",
+         "vue",
       },
    },
 
@@ -45,8 +52,12 @@ local sources = {
 }
 
 local M = {}
+
 M.setup = function()
    null_ls.setup {
+      on_attach = function(client, bufnr)
+         formatters.setup(client, bufnr)
+      end,
       sources = sources,
    }
 end

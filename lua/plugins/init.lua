@@ -107,8 +107,6 @@ local plugins = {
       end,
    },
 
- 
-
    -- load luasnips + cmp related in insert mode only
 
    ["rafamadriz/friendly-snippets"] = {

@@ -35,8 +35,6 @@ M.plugins = {
 
       ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
 
-      -- ["github/copilot.vim"] = {},
-
       ["zbirenbaum/copilot-cmp"] = {
          after = { "copilot.lua", "nvim-cmp" },
       },

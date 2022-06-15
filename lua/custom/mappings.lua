@@ -9,6 +9,7 @@ M.nvimtree = {
 
 M.global = {
    n = {
+      ["gd"] = { "<cmd> lua vim.lsp.buf.definition() <CR>", "?   trigger LSP formatting" },
       ["<leader>fm"] = { "<cmd> lua vim.lsp.buf.formatting() <CR>", "?   trigger LSP formatting" },
       ["<leader>cc"] = { "<cmd> Telescope <CR>", "?   runs Telescope" },
       ["<leader>q"] = { "<cmd> q <CR>", "?   quits current window" },
