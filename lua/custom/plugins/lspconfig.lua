@@ -1,9 +1,8 @@
-local formatters = require "custom.plugins.formatters"
-
 local M = {}
 
 M.setup_lsp = function(attach, capabilities)
    local lspconfig = require "lspconfig"
+   local formatters = require "custom.plugins.formatters"
 
    -- lspservers with default config
 
@@ -15,7 +14,6 @@ M.setup_lsp = function(attach, capabilities)
       "yamlls",
       "tsserver",
       "volar",
-      "tailwindcss",
    }
 
    for _, lsp in ipairs(servers) do
@@ -36,6 +34,11 @@ M.setup_lsp = function(attach, capabilities)
    -- lspconfig.volar.setup {
    --    cmd = { "vls", "--stdio" },
    -- }
+
+   lspconfig.tailwindcss.setup {
+      on_attach = attach,
+      root_dir = lspconfig.util.root_pattern "tailwind.config.js",
+   }
 
    lspconfig.denols.setup {
       on_attach = attach,

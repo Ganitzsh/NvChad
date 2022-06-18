@@ -1,3 +1,9 @@
+local ok = pcall(require, "null-ls")
+
+if not ok then
+   return
+end
+
 local methods = require "null-ls.methods"
 local sources = require "null-ls.sources"
 

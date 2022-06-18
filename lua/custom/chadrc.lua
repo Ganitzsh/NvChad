@@ -35,8 +35,10 @@ M.plugins = {
 
       ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
 
+      ["github/copilot.vim"] = {},
+
       ["zbirenbaum/copilot-cmp"] = {
-         after = { "copilot.lua", "nvim-cmp" },
+         module = "copilot_cmp",
       },
 
       ["zbirenbaum/copilot.lua"] = {
@@ -49,7 +51,7 @@ M.plugins = {
       },
 
       ["jose-elias-alvarez/null-ls.nvim"] = {
-         after = "nvim-lspconfig",
+         before = "nvim-lspconfig",
          config = function()
             require("custom.plugins.null-ls").setup()
          end,

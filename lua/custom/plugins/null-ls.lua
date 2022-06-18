@@ -1,18 +1,16 @@
-local formatters = require "custom.plugins.formatters"
-
 local ok, null_ls = pcall(require, "null-ls")
 
 if not ok then
    return
 end
 
+local formatters = require "custom.plugins.formatters"
+
 local b = null_ls.builtins
 
 local sources = {
-   b.formatting.protolint.with {
-      filetypes = { "proto" },
-      command = { "protolint" },
-   },
+   b.formatting.buf,
+   b.diagnostics.buf,
 
    -- JS html css stuff
    b.diagnostics.eslint_d,
@@ -55,9 +53,9 @@ local M = {}
 
 M.setup = function()
    null_ls.setup {
-      on_attach = function(client, bufnr)
-         formatters.setup(client, bufnr)
-      end,
+      -- on_attach = function(client, bufnr)
+      --    formatters.setup(client, bufnr)
+      -- end,
       sources = sources,
    }
 end
