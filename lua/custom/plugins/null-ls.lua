@@ -9,6 +9,8 @@ local formatters = require "custom.plugins.formatters"
 local b = null_ls.builtins
 
 local sources = {
+   b.diagnostics.cspell,
+
    b.formatting.buf,
    b.diagnostics.buf,
 
