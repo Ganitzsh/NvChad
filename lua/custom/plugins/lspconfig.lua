@@ -2,7 +2,6 @@ local M = {}
 
 M.setup_lsp = function(attach, capabilities)
    local lspconfig = require "lspconfig"
-   local formatters = require "custom.plugins.formatters"
 
    -- lspservers with default config
 
@@ -18,10 +17,7 @@ M.setup_lsp = function(attach, capabilities)
 
    for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
-         on_attach = function(client, bufnr)
-            attach(client, bufnr)
-            formatters.setup(client, bufnr)
-         end,
+         on_attach = attach,
          capabilities = capabilities,
          flags = {
             debounce_text_changes = 150,

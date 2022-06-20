@@ -18,10 +18,6 @@ local sources = {
    b.diagnostics.eslint_d,
    b.code_actions.eslint_d,
    b.formatting.prettierd.with {
-      on_attach = function(client, bufnr)
-         formatters.setup(client, bufnr)
-      end,
-
       filetypes = {
          "html",
          "json",
@@ -58,6 +54,10 @@ M.setup = function()
       -- on_attach = function(client, bufnr)
       --    formatters.setup(client, bufnr)
       -- end,
+      on_attach = function(client, bufnr)
+         formatters.setup(client, bufnr)
+      end,
+
       sources = sources,
    }
 end

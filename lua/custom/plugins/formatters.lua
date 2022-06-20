@@ -1,9 +1,3 @@
-local ok = pcall(require, "null-ls")
-
-if not ok then
-   return
-end
-
 local methods = require "null-ls.methods"
 local sources = require "null-ls.sources"
 
@@ -19,7 +13,6 @@ end
 M.setup = function(client, bufnr)
    local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
 
-   local hasFormatter = M.has_nls_formatter(filetype)
    local enable = false
    if M.has_nls_formatter(filetype) then
       enable = client.name == "null-ls"
@@ -27,23 +20,14 @@ M.setup = function(client, bufnr)
       enable = not (client.name == "null-ls")
    end
 
-   vim.notify(
-      "Client = " .. client.name .. ", enabled = " .. tostring(enable) .. ", has null-ls formatter = " .. tostring(hasFormatter),
-      vim.log.levels.INFO
-   )
-
    client.resolved_capabilities.document_formatting = enable
    client.resolved_capabilities.document_range_formatting = enable
 
-   if client.resolved_capabilities.document_formatting then
-      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+   if enable then
       vim.api.nvim_create_autocmd("BufWritePre", {
          group = augroup,
          buffer = bufnr,
-         callback = function()
-            -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-            vim.lsp.buf.formatting_sync()
-         end,
+         command = "lua vim.lsp.buf.formatting_sync()",
       })
    end
 end

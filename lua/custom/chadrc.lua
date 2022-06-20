@@ -51,7 +51,7 @@ M.plugins = {
       },
 
       ["jose-elias-alvarez/null-ls.nvim"] = {
-         before = "nvim-lspconfig",
+         after = "nvim-lspconfig",
          config = function()
             require("custom.plugins.null-ls").setup()
          end,
