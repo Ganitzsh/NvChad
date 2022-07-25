@@ -16,7 +16,15 @@ cmp.setup {
    --    winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
    -- },
    formatting = {
-      format = lspkind.cmp_format { with_text = true, maxwidth = 50 },
+      -- format = lspkind.cmp_format { with_text = true, maxwidth = 50 },
+      format = function(entry, vim_item)
+         if entry.source.name == "copilot" then
+            vim_item.kind = "[] Copilot"
+            vim_item.kind_hl_group = "CmpItemKindCopilot"
+            return vim_item
+         end
+         return lspkind.cmp_format { with_text = true, maxwidth = 50 }(entry, vim_item)
+      end,
    },
    window = {
       completion = {
@@ -105,3 +113,4 @@ cmp.setup {
 
 --set max height of items
 vim.cmd [[ set pumheight=6 ]]
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
