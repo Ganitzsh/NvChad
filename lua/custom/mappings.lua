@@ -14,7 +14,7 @@ M.global = {
       ["<leader>cc"] = { "<cmd> Telescope <CR>", "?   runs Telescope" },
       ["<leader>q"] = { "<cmd> q <CR>", "?   quits current window" },
       ["<leader>d"] = { "<cmd> TroubleToggle <CR>", "?   toggles Trouble" },
-      ["<leader>dd"] = { "<cmd> lua vim.diagnostic.open_float() <CR>", "?   toggles local Troubleshout" },
+      ["<leader>dd"] = { "<cmd> lua vim.diagnostic.open_float() <CR>", "?   toggles local troubleshoot" },
       ["<leader>x"] = { "<cmd> BufDel <CR>", "?   closes the current buffer" },
       ["<leader>/"] = { "gcc", "?   comments selection" },
    },
