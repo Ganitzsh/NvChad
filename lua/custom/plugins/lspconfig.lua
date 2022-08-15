@@ -1,3 +1,4 @@
+-- cspell: disable
 local present, lspconfig = pcall(require, "lspconfig")
 
 if not present then
@@ -18,6 +19,7 @@ local servers = {
   "yamlls",
   "tsserver",
   "volar",
+  "rust_analyzer",
 }
 
 for _, lsp in ipairs(servers) do
