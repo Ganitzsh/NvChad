@@ -35,7 +35,7 @@ local sources = {
   },
 
   -- Golang
-  -- b.formatting.gofumpt,
+  b.formatting.gofumpt,
 
   -- Lua
   b.formatting.stylua,
