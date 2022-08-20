@@ -37,22 +37,22 @@ M.plugins = {
 
     -- ["github/copilot.vim"] = {},
 
-    ["zbirenbaum/copilot-cmp"] = {
-      module = "copilot_cmp",
-    },
-
-    ["zbirenbaum/copilot.lua"] = {
-      event = { "VimEnter" },
-      config = function()
-        vim.defer_fn(function()
-          require("copilot").setup {
-            cmp = {
-              enabled = true,
-            },
-          }
-        end, 100)
-      end,
-    },
+    -- ["zbirenbaum/copilot-cmp"] = {
+    --   module = "copilot_cmp",
+    -- },
+    --
+    -- ["zbirenbaum/copilot.lua"] = {
+    --   event = { "VimEnter" },
+    --   config = function()
+    --     vim.defer_fn(function()
+    --       require("copilot").setup {
+    --         cmp = {
+    --           enabled = true,
+    --         },
+    --       }
+    --     end, 100)
+    --   end,
+    -- },
 
     ["jose-elias-alvarez/null-ls.nvim"] = {
       after = "nvim-lspconfig",
