@@ -15,6 +15,18 @@ M.ui = {
 
 -- NvChad included plugin options & overrides
 M.plugins = {
+  override = {
+    ["nvim-treesitter/nvim-treesitter"] = {
+      ensure_installed = {
+        "lua",
+        "swift",
+        "rust",
+        "go",
+        "javascript",
+        "typescript",
+      },
+    },
+  },
   user = {
     ["onsails/lspkind.nvim"] = {},
 
