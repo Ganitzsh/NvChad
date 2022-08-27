@@ -45,6 +45,9 @@ local sources = {
   b.formatting.shfmt,
   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
 
+  -- Zig
+  b.formatting.zigfmt,
+
   -- Terraform
   b.formatting.terraform_fmt,
 }
