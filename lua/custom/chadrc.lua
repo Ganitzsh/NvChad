@@ -28,6 +28,8 @@ M.plugins = {
     },
   },
   user = {
+    ["eliba2/vim-node-inspect"] = {},
+
     ["onsails/lspkind.nvim"] = {},
 
     ["ojroques/nvim-bufdel"] = {
