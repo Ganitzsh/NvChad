@@ -1,3 +1,5 @@
+-- spell-checker: disable
+
 local present, cmp = pcall(require, "cmp")
 
 local lspkind = require "lspkind"

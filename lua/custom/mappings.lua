@@ -1,3 +1,5 @@
+-- spell-checker: disable
+
 local M = {}
 
 M.nvimtree = {

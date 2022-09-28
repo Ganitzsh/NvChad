@@ -1,4 +1,5 @@
--- cspell: disable
+-- spell-checker: disable
+
 local present, lspconfig = pcall(require, "lspconfig")
 
 if not present then

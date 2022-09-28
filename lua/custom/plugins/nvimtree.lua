@@ -1,3 +1,5 @@
+-- spell-checker: disable
+
 local present, nvimtree = pcall(require, "nvim-tree")
 if not present then
   return
@@ -20,7 +22,6 @@ nvimtree.setup {
   update_cwd = false,
   view = {
     width = 40,
-    height = 30,
     hide_root_folder = false,
     side = "left",
     preserve_window_proportions = false,

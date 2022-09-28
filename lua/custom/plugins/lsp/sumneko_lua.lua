@@ -1,3 +1,5 @@
+-- spell-checker: disable
+
 local runtime_path = vim.split(package.path, ";")
 
 table.insert(runtime_path, "lua/?.lua")
