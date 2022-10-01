@@ -82,7 +82,9 @@ M.colorizer = function()
   options = load_override(options, "NvChad/nvim-colorizer.lua")
   colorizer.setup(options)
   -- execute colorizer as soon as possible
-  return vim.tbl_isempty(options.filetypes or {}) or vim.cmd [[do FileType]]
+  vim.defer_fn(function()
+    require("colorizer").attach_to_buffer(0)
+  end, 0)
 end
 
 M.comment = function()
@@ -111,8 +113,8 @@ M.luasnip = function()
 
   options = load_override(options, "L3MON4D3/LuaSnip")
   luasnip.config.set_config(options)
-  require("luasnip.loaders.from_vscode").lazy_load()
   require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.luasnippets_path or "" }
+  require("luasnip.loaders.from_vscode").lazy_load()
 
   vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()

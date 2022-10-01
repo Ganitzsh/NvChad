@@ -1,3 +1,5 @@
+-- spell-checker: disable
+
 local ok, null_ls = pcall(require, "null-ls")
 
 if not ok then
@@ -19,6 +21,8 @@ local sources = {
   -- JS html css stuff
   b.diagnostics.eslint_d,
   b.code_actions.eslint_d,
+  -- b.diagnostics.eslint,
+  -- b.code_actions.eslint,
   b.formatting.prettier.with {
     filetypes = {
       "html",

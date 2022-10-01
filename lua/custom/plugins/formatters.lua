@@ -1,4 +1,5 @@
--- cspell: disable
+-- spell-checker: disable
+
 local methods = require "null-ls.methods"
 local sources = require "null-ls.sources"
 
