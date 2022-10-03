@@ -22,15 +22,15 @@ M.setup = function(client, bufnr)
     enable = not (client.name == "null-ls")
   end
 
-  client.resolved_capabilities.document_formatting = enable
-  client.resolved_capabilities.document_range_formatting = enable
+  client.server_capabilities.document_formatting = enable
+  client.server_capabilities.document_range_formatting = enable
 
   if enable then
     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = augroup,
       buffer = bufnr,
-      command = "lua vim.lsp.buf.formatting_sync()",
+      command = "lua vim.lsp.buf.format({ async = true })",
     })
   end
 end

@@ -22,24 +22,21 @@ return {
 
   ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
 
-  -- ["github/copilot.vim"] = {},
+  ["zbirenbaum/copilot-cmp"] = {
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
 
-  -- ["zbirenbaum/copilot-cmp"] = {
-  --   module = "copilot_cmp",
-  -- },
-  --
-  -- ["zbirenbaum/copilot.lua"] = {
-  --   event = { "VimEnter" },
-  --   config = function()
-  --     vim.defer_fn(function()
-  --       require("copilot").setup {
-  --         cmp = {
-  --           enabled = true,
-  --         },
-  --       }
-  --     end, 100)
-  --   end,
-  -- },
+  ["zbirenbaum/copilot.lua"] = {
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()
+      end, 100)
+    end,
+  },
 
   ["jose-elias-alvarez/null-ls.nvim"] = {
     after = "nvim-lspconfig",
