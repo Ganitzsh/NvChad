@@ -22,12 +22,29 @@ return {
 
   ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
 
+  ["neovim/nvim-lspconfig"] = {
+    config = function()
+      require "custom.plugins.lspconfig"
+    end,
+  },
+
+  ["hrsh7th/nvim-cmp"] = {
+    override_options = {
+      sources = {
+        { name = "copilot" },
+        { name = "luasnip" },
+        { name = "nvim_lsp" },
+        { name = "buffer" },
+        { name = "nvim_lua" },
+        { name = "path" },
+      },
+    },
+  },
+
   ["zbirenbaum/copilot-cmp"] = {
     after = { "copilot.lua" },
     config = function()
-      require("copilot_cmp").setup {
-        force_autofmt = true,
-      }
+      require("copilot_cmp").setup()
     end,
   },
 
@@ -58,19 +75,6 @@ return {
   ["kyazdani42/nvim-tree.lua"] = {
     config = function()
       require "custom.plugins.nvimtree"
-    end,
-  },
-
-  ["hrsh7th/nvim-cmp"] = {
-    config = function()
-      require "custom.plugins.cmp"
-    end,
-  },
-
-  ["neovim/nvim-lspconfig"] = {
-    config = function()
-      -- require "plugins.configs.lspconfig"
-      require "custom.plugins.lspconfig"
     end,
   },
 
