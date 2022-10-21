@@ -1,6 +1,52 @@
 -- spell-checker: disable
 
 return {
+  ["EdenEast/nightfox.nvim"] = {},
+
+  ["rcarriga/nvim-dap-ui"] = {
+    config = function()
+      require("dapui").setup()
+    end,
+  },
+
+  ["theHamsta/nvim-dap-virtual-text"] = {
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
+  },
+
+  ["microsoft/vscode-js-debug"] = {
+    opt = true,
+    run = "npm install --legacy-peer-deps && npm run compile",
+  },
+
+  ["mfussenegger/nvim-dap"] = {},
+
+  ["mxsdev/nvim-dap-vscode-js"] = {
+    config = function()
+      require("custom.plugins.dap-vscode-js").setup()
+    end,
+  },
+
+  ["David-Kunz/jester"] = {
+    config = function()
+      require("jester").setup {
+        dap = {
+          type = "pwa-node",
+          request = "launch",
+          cwd = "${workspaceFolder}",
+          -- runtimeArgs = { "--inspect-brk", "$path_to_jest", "--no-coverage", "-t", "$result", "--", "$file" },
+          args = { "--no-cache" },
+          sourceMaps = true,
+          protocol = "inspector",
+          skipFiles = { "<node_internals>/**" },
+          console = "integratedTerminal",
+          -- internalConsoleOptions = "neverOpen",
+        },
+      }
+    end,
+  },
+
   ["eliba2/vim-node-inspect"] = {},
 
   ["onsails/lspkind.nvim"] = {},

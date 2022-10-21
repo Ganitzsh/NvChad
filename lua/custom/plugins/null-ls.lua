@@ -19,10 +19,10 @@ local sources = {
   b.formatting.rustfmt,
 
   -- JS html css stuff
-  b.diagnostics.eslint_d,
-  b.code_actions.eslint_d,
-  -- b.diagnostics.eslint,
-  -- b.code_actions.eslint,
+  -- b.diagnostics.eslint_d,
+  -- b.code_actions.eslint_d,
+  b.diagnostics.eslint,
+  b.code_actions.eslint,
   b.formatting.prettier.with {
     filetypes = {
       "html",
