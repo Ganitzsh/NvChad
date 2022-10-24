@@ -16,7 +16,6 @@ local servers = {
   "html",
   "cssls",
   "pyright",
-  "clangd",
   "yamlls",
   "tsserver",
   "volar",

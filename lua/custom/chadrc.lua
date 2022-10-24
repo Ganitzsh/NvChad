@@ -12,10 +12,9 @@ M.options = {
 }
 
 M.ui = {
-  theme = "gruvchad",
+  theme = "nightfox",
 }
 
--- NvChad included plugin options & overrides
 M.plugins = require "custom.plugins"
 
 return M
