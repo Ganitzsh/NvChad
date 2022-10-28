@@ -20,7 +20,11 @@ return {
     run = "npm install --legacy-peer-deps && npm run compile",
   },
 
-  ["mfussenegger/nvim-dap"] = {},
+  ["mfussenegger/nvim-dap"] = {
+    config = function()
+      require("custom.plugins.dap").setup()
+    end,
+  },
 
   ["mxsdev/nvim-dap-vscode-js"] = {
     config = function()
