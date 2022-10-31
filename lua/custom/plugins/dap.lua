@@ -1,54 +1,63 @@
+-- spell-checker: disable
+
 local present, dap = pcall(require, "dap")
 
 if not present then
   return
 end
 
+local logger = require("custom.log").create_logger "dap-custom-rust"
+
 local M = {}
 
-local node2_config = {
-  {
-    name = "Launch",
-    type = "node2",
-    request = "launch",
-    program = "${file}",
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = "inspector",
-    console = "integratedTerminal",
-  },
-  {
-    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-    name = "Attach to process",
-    type = "node2",
-    request = "attach",
-    processId = require("dap.utils").pick_process,
-  },
-}
-
 M.setup = function()
-  dap.adapters.firefox = {
+  dap.set_log_level "TRACE"
+
+  dap.adapters.cppdbg = {
+    id = "cppdbg",
     type = "executable",
-    command = "node",
-    args = { os.getenv "HOME" .. "/Dev/vscode-firefox-debug/dist/adapter.bundle.js" },
+    command = "/Users/ganitzsh/Dev/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
+    options = { detached = false },
   }
 
-  dap.configurations.typescript = {
-    {
-      name = "Debug with Firefox",
-      type = "firefox",
-      request = "launch",
-      reAttach = true,
-      url = "http://localhost:3000",
-      webRoot = "${workspaceFolder}",
-      firefoxExecutable = "/Applications/Firefox.app/Contents/MacOS/firefox",
+  dap.adapters.codelldb = {
+    type = "server",
+    port = "${port}",
+    executable = {
+      command = "/Users/ganitzsh/Dev/codelldb/extension/adapter/codelldb",
+      args = { "--port", "${port}" },
     },
   }
 
-  dap.adapters.node2 = {
-    type = "executable",
-    command = "node",
-    args = { os.getenv "HOME" .. "/Dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js" },
+  dap.configurations.rust = {
+    {
+      name = "Launch test",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        local test_name = vim.fn.input("Test name: ", "")
+        local cargo_test_cmd = "cargo test " .. test_name .. "--no-run --message-format=json -q"
+        local cmd = string.format(
+          "%s | jq -r 'select(.target.kind[0] == \"bin\") | .executable' | tr -d '\n'",
+          cargo_test_cmd
+        )
+
+        local handle = io.popen(cmd)
+        if handle == nil then
+          print "Failed to run cargo test"
+          return nil
+        end
+
+        local result = handle:read "*a"
+        handle:close()
+
+        logger.debug("Launch test", result, cmd)
+
+        return result
+      end,
+      cwd = "${workspaceFolder}",
+      stopAtEntry = true,
+    },
   }
 end
 
