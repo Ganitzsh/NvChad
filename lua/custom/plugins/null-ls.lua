@@ -19,11 +19,23 @@ local sources = {
   b.formatting.rustfmt,
 
   -- JS html css stuff
-  -- b.diagnostics.eslint_d,
-  -- b.code_actions.eslint_d,
-  b.diagnostics.eslint,
-  b.code_actions.eslint,
+  b.diagnostics.eslint_d.with {
+    condition = function(utils)
+      return utils.root_has_file { "package.json" }
+    end,
+  },
+  b.code_actions.eslint_d.with {
+    condition = function(utils)
+      return utils.root_has_file { "package.json" }
+    end,
+  },
+  -- b.diagnostics.eslint,
+  -- b.code_actions.eslint,
   b.formatting.prettier.with {
+    condition = function(utils)
+      return utils.root_has_file { "package.json" }
+    end,
+
     filetypes = {
       "html",
       "json",
@@ -32,6 +44,8 @@ local sources = {
       "css",
       "yaml",
       "typescript",
+      "typescriptreact",
+      "typescript.tsx",
       "javascript",
       "javascriptreact",
       "vue",

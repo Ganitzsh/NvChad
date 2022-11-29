@@ -37,6 +37,13 @@ end
 
 -- typescript
 
+lspconfig.tsserver.setup {
+  on_attach = parentConfig.on_attach,
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" },
+  root_dir = lspconfig.util.root_pattern "package.json",
+}
+
 -- lspconfig.volar.setup {
 --    cmd = { "vls", "--stdio" },
 -- }
@@ -47,13 +54,13 @@ lspconfig.tailwindcss.setup {
   root_dir = lspconfig.util.root_pattern "tailwind.config.js",
 }
 
--- lspconfig.denols.setup {
---    on_attach = attach,
---    root_dir = lspconfig.util.root_pattern "deno.json",
---    init_options = {
---       enable = true,
---    },
--- }
+lspconfig.denols.setup {
+  on_attach = parentConfig.on_attach,
+  root_dir = lspconfig.util.root_pattern "deno.json",
+  init_options = {
+    enable = true,
+  },
+}
 
 -- lspconfig.vuels.setup {
 --    on_attach = function(client)
