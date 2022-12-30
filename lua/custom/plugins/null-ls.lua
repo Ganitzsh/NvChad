@@ -19,18 +19,29 @@ local sources = {
   b.formatting.rustfmt,
 
   -- JS html css stuff
-  b.diagnostics.eslint_d.with {
+  b.formatting.deno_fmt.with {
+    -- condition = function(utils)
+    --   return utils.root_has_file_matches "deno*"
+    -- end,
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  },
+
+  b.diagnostics.eslint.with {
+    -- b.diagnostics.eslint_d.with {
     condition = function(utils)
       return utils.root_has_file { "package.json" }
     end,
   },
-  b.code_actions.eslint_d.with {
+  b.diagnostics.eslint.with {
+    -- b.code_actions.eslint_d.with {
     condition = function(utils)
       return utils.root_has_file { "package.json" }
     end,
   },
+
   -- b.diagnostics.eslint,
   -- b.code_actions.eslint,
+
   b.formatting.prettier.with {
     condition = function(utils)
       return utils.root_has_file { "package.json" }

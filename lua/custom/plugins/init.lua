@@ -1,6 +1,13 @@
 -- spell-checker: disable
 
 return {
+  ["leoluz/nvim-dap-go"] = {
+    after = { "nvim-dap" },
+    config = function()
+      require("dap-go").setup()
+    end,
+  },
+
   ["EdenEast/nightfox.nvim"] = {},
 
   ["rcarriga/nvim-dap-ui"] = {
@@ -17,7 +24,7 @@ return {
 
   ["microsoft/vscode-js-debug"] = {
     opt = true,
-    run = "npm install --legacy-peer-deps && npm run compile",
+    run = "npm install --legacy-peer-deps && npm run compile && git checkout .",
   },
 
   ["mfussenegger/nvim-dap"] = {
