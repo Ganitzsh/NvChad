@@ -23,24 +23,21 @@ local sources = {
     -- condition = function(utils)
     --   return utils.root_has_file_matches "deno*"
     -- end,
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "markdown" },
   },
 
-  b.diagnostics.eslint.with {
-    -- b.diagnostics.eslint_d.with {
+  -- b.diagnostics.eslint.with {
+  b.diagnostics.eslint_d.with {
     condition = function(utils)
       return utils.root_has_file { "package.json" }
     end,
   },
-  b.diagnostics.eslint.with {
-    -- b.code_actions.eslint_d.with {
+  -- b.diagnostics.eslint.with {
+  b.code_actions.eslint_d.with {
     condition = function(utils)
       return utils.root_has_file { "package.json" }
     end,
   },
-
-  -- b.diagnostics.eslint,
-  -- b.code_actions.eslint,
 
   b.formatting.prettier.with {
     condition = function(utils)

@@ -1,6 +1,8 @@
 -- spell-checker: disable
 
 return {
+  ["IndianBoy42/tree-sitter-just"] = {},
+
   ["leoluz/nvim-dap-go"] = {
     after = { "nvim-dap" },
     config = function()
@@ -129,11 +131,11 @@ return {
     end,
   },
 
-  ["kyazdani42/nvim-tree.lua"] = {
-    config = function()
-      require "custom.plugins.nvimtree"
-    end,
-  },
+  -- ["kyazdani42/nvim-tree.lua"] = {
+  --   config = function()
+  --     require "custom.plugins.nvimtree"
+  --   end,
+  -- },
 
   ["nvim-treesitter/nvim-treesitter"] = {
     override_options = {

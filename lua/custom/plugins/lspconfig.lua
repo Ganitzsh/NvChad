@@ -22,6 +22,7 @@ local servers = {
   "rust_analyzer",
   "zls",
   "prismals",
+  "lua_ls",
 }
 
 for _, lsp in ipairs(servers) do
