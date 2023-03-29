@@ -10,8 +10,44 @@ local formatters = require "custom.plugins.formatters"
 
 local b = null_ls.builtins
 
+local eslint_files = {
+  ".eslintrc",
+  ".eslintrc.json",
+  ".eslintrc.yaml",
+  ".eslintrc.yml",
+  ".eslintrc.js",
+  ".eslintrc.cjs",
+  ".eslintrc.mjs",
+  ".eslintrc.ts",
+}
+
+local cspell_files = {
+  ".cspell.json",
+  ".cspell.yaml",
+  ".cspell.yml",
+}
+
+local prettier_files = {
+  ".prettierrc",
+  ".prettierrc.json",
+  ".prettierrc.yaml",
+  ".prettierrc.yml",
+  ".prettierrc.js",
+  ".prettierrc.cjs",
+  ".prettierrc.mjs",
+  ".prettierrc.ts",
+  "prettier.config.js",
+  "prettier.config.cjs",
+  "prettier.config.mjs",
+  "prettier.config.ts",
+}
+
 local sources = {
-  b.diagnostics.cspell,
+  b.diagnostics.cspell.with {
+    condition = function(utils)
+      return utils.root_has_file(cspell_files)
+    end,
+  },
 
   b.formatting.buf,
   b.diagnostics.buf,
@@ -23,25 +59,26 @@ local sources = {
     -- condition = function(utils)
     --   return utils.root_has_file_matches "deno*"
     -- end,
+
     filetypes = { "typescript", "typescriptreact", "typescript.tsx", "markdown" },
   },
 
   -- b.diagnostics.eslint.with {
   b.diagnostics.eslint_d.with {
     condition = function(utils)
-      return utils.root_has_file { "package.json" }
+      return utils.root_has_file(eslint_files)
     end,
   },
   -- b.diagnostics.eslint.with {
   b.code_actions.eslint_d.with {
     condition = function(utils)
-      return utils.root_has_file { "package.json" }
+      return utils.root_has_file(eslint_files)
     end,
   },
 
-  b.formatting.prettier.with {
+  b.formatting.prettierd.with {
     condition = function(utils)
-      return utils.root_has_file { "package.json" }
+      return utils.root_has_file(prettier_files)
     end,
 
     filetypes = {

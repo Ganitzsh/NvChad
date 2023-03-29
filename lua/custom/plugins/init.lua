@@ -1,6 +1,64 @@
--- spell-checker: disable
-
 return {
+  ["nvim-tree/nvim-tree.lua"] = {
+    config = function()
+      require "custom.plugins.nvimtree"
+    end,
+  },
+
+  ["neovim/nvim-lspconfig"] = {
+    config = function()
+      require "custom.plugins.lspconfig"
+    end,
+  },
+
+  ["williamboman/mason.nvim"] = {
+    ensure_installed = {
+      "lua-language-server",
+      "cspell",
+      "deno",
+      "eslint_d",
+      "prettierd",
+      "prisma-language-server",
+      "rustfmt",
+      "shellcheck",
+      "shfmt",
+      "stylua",
+      "tailwindcss-language-server",
+      "typescript-language-server",
+      "vue-language-server",
+      "yaml-language-server",
+      "json-lsp",
+      "rust-analyzer",
+    },
+  },
+
+  ["williamboman/mason-lspconfig.nvim"] = {
+    after = { "mason.nvim" },
+    ensure_installed = {
+      "lua-language-server",
+      "cspell",
+      "deno",
+      "eslint_d",
+      "prettierd",
+      "prisma-language-server",
+      "rustfmt",
+      "shellcheck",
+      "shfmt",
+      "stylua",
+      "tailwindcss-language-server",
+      "typescript-language-server",
+      "vue-language-server",
+      "yaml-language-server",
+      "json-lsp",
+      "rust-analyzer",
+    },
+    automatic_installation = true,
+  },
+
+  ["folke/neodev.nvim"] = {
+    config = function() end,
+  },
+
   ["IndianBoy42/tree-sitter-just"] = {},
 
   ["leoluz/nvim-dap-go"] = {
@@ -81,12 +139,6 @@ return {
 
   ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
 
-  ["neovim/nvim-lspconfig"] = {
-    config = function()
-      require "custom.plugins.lspconfig"
-    end,
-  },
-
   ["hrsh7th/nvim-cmp"] = {
     override_options = {
       sources = {
@@ -130,12 +182,6 @@ return {
       require("trouble").setup()
     end,
   },
-
-  -- ["kyazdani42/nvim-tree.lua"] = {
-  --   config = function()
-  --     require "custom.plugins.nvimtree"
-  --   end,
-  -- },
 
   ["nvim-treesitter/nvim-treesitter"] = {
     override_options = {

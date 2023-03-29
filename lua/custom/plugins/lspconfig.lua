@@ -6,6 +6,12 @@ if not present then
   return
 end
 
+local neodevInstalled, neodev = pcall(require, "neodev")
+
+if neodevInstalled then
+  neodev.setup()
+end
+
 local parentConfig = require "plugins.configs.lspconfig"
 
 local M = {}
