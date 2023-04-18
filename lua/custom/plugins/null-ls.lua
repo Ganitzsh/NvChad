@@ -56,11 +56,11 @@ local sources = {
 
   -- JS html css stuff
   b.formatting.deno_fmt.with {
-    -- condition = function(utils)
-    --   return utils.root_has_file_matches "deno*"
-    -- end,
+    condition = function(utils)
+      return utils.root_has_file_matches "deno*" or vim.api.nvim_buf_get_option(0, "filetype") == "json"
+    end,
 
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "markdown" },
+    filetypes = { "json", "typescript", "typescriptreact", "typescript.tsx", "markdown" },
   },
 
   -- b.diagnostics.eslint.with {
@@ -119,9 +119,6 @@ local M = {}
 
 M.setup = function()
   null_ls.setup {
-    -- on_attach = function(client, bufnr)
-    --    formatters.setup(client, bufnr)
-    -- end,
     on_attach = function(client, bufnr)
       formatters.setup(client, bufnr)
     end,

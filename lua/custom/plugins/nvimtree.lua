@@ -7,4 +7,8 @@ end
 
 vim.o.termguicolors = true
 
-nvimtree.setup()
+nvimtree.setup {
+  git = {
+    ignore = false,
+  },
+}
