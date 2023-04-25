@@ -1,4 +1,6 @@
 return {
+  ["f-person/git-blame.nvim"] = {},
+
   ["nvim-tree/nvim-tree.lua"] = {
     config = function()
       require "custom.plugins.nvimtree"
@@ -102,17 +104,17 @@ return {
   ["David-Kunz/jester"] = {
     config = function()
       require("jester").setup {
+        path_to_jest_run = "./node_modules/.bin/jest",
         dap = {
           type = "pwa-node",
           request = "launch",
           cwd = "${workspaceFolder}",
-          -- runtimeArgs = { "--inspect-brk", "$path_to_jest", "--no-coverage", "-t", "$result", "--", "$file" },
+          runtimeArgs = { "--inspect-brk", "$path_to_jest", "--no-coverage", "-t", "$result", "--", "$file" },
           args = { "--no-cache" },
           sourceMaps = true,
           protocol = "inspector",
           skipFiles = { "<node_internals>/**" },
           console = "integratedTerminal",
-          -- internalConsoleOptions = "neverOpen",
         },
       }
     end,
